@@ -1,16 +1,20 @@
 const express = require('express');
 const app = express();
- 
-app.get('/', function (req, res) {
-  //res.send('hola mundo');
-  let salida = {
-    nombre:'Gonzalo',
-    edad:30,
-    url: req.url
-}
-res.send(salida);
+
+app.use(express.static(__dirname + '/public'));
+
+//express HBS engine
+app.set('view engine', 'hbs');
+
+app.get('/', function(req, res) {
+
+    res.render('home', {
+        nombre: 'Gonzalo',
+        anio: new Date().getFullYear()
+    });
+
 });
- 
-app.listen(3000, ()=>{
+
+app.listen(3000, () => {
     console.log('escuchando en el puerto 3000');
 });
